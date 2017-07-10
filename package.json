@@ -1,6 +1,6 @@
 {
   "name": "Neo-bot",
-  "version": "0.0.2",
+  "version": "0.1",
   "description": "Antshares/Neo bot for slack",
   "main": "index.js",
   "scripts": {
