@@ -5,9 +5,7 @@ const fs = require('fs');
 module.exports = Train;
 
 function Train(Brain, speech, message, Bot) {
-  console.log('Inside on-the-fly training module.');
-  console.log('Asking user for name of skill.');
-  const phraseExamples = [];
+  let phraseExamples = [];
   let answer = "";
   let phraseName;
   speech.startConversation(message, function(err, convo) {
@@ -45,16 +43,25 @@ function Train(Brain, speech, message, Bot) {
             Brain.think();
             writeSkill(phraseName, phraseExamples, answer, Bot, function() {
               convo.say('All done! You should try seeing if I understood now!');
+              convo.next();
             });
+            convo.next();
+          }
+        },
+        {
+          pattern: '^cancel$',
+          callback: function(response, convo) {
+            convo.say('Canceling');
+            answer = '';
+            phraseName = '';
+            phraseExamples = [];
             convo.next();
           }
         },
         {
           pattern: '^answer$',
           callback: function(response, convo) {
-            convo.say('Type your answer for the questions, if you are done after that, type done');
-            answer = response.text;
-            reprompt(convo);
+            askAnswer(convo);
             convo.next();
           }
         },
@@ -68,27 +75,58 @@ function Train(Brain, speech, message, Bot) {
         }
       ]);
     }
+    
+    function askAnswer(convo) {
+      convo.say('You are adding an answer');
+      
+      convo.ask('Type your answer for the questions, if you are done after that, type done', [
+        {
+          pattern: '.*',
+          callback: function(response, convo) {
+            answer = response.text;
+        
+            reprompt(convo);
+            convo.next();
+          }
+        }
+      ]);
+    }
   });
 }
 
-async function writeSkill(name, vocab, answer, Bot, callback) {
-  console.log('Writing new data to database...');
+function writeSkill(name, vocab, answer, Bot, callback) {
+  try {
   
-  const res = Bot.storage.phrases.find({skill: name});
+  Bot.storage.phrases.findOne({skill: name}, (err, res) => {
+    if (err) {
+      callback();
+      return;
+    }
   
-  let result;
-  
-  if(res.length > 0) {
-    result = await Bot.storage.phrases.findOneAndUpdate({skill: name}, {$addToSet: {phrases: vocab}});
-  } else {
-    result = await Bot.storage.phrases.insert({
-      skill: name,
-      phrases: vocab,
-      answer: answer
-    });
+    if (res) {
+      Bot.storage.phrases.findOneAndUpdate({skill: name}, {answer: answer, $addToSet: {phrases: {$each: vocab}}}, (err, res) => {
+        if(err) {
+          throw err;
+        } else {
+          callback();
+        }
+      });
+    } else {
+      Bot.storage.phrases.save({
+        skill: name,
+        phrases: vocab,
+        answer: answer
+      }, (err, res) => {
+        if(err) {
+          throw err;
+        } else {
+          callback();
+        }
+      });
+    }
+  });
+  } catch (e) {
+    require('../imports/error')(Bot, e);
   }
-  
-  console.log(' RESULT WRITING ', result);
-  
-  callback();
+ 
 }
