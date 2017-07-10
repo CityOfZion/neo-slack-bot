@@ -7,7 +7,7 @@ module.exports = Brain;
 
 function Brain() {
   this.classifier = new NLP.LogisticRegressionClassifier();
-  this.minConfidence = 0.8;
+  this.minConfidence = 0.95;
 }
 
 Brain.prototype.teach = function(label, phrases) {
