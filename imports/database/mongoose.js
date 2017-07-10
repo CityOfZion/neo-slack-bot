@@ -59,6 +59,9 @@ function getStorage(model) {
     },
     findOne: function(data, cb) {
       model.findOne(data).lean().exec(cb);
+    },
+    findOneAndUpdate: function(cond, data, cb) {
+      model.findOneAndUpdate(cond, data, cb)
     }
   };
 }
