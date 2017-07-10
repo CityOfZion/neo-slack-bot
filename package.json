@@ -1,0 +1,50 @@
+{
+  "name": "Neo-bot",
+  "version": "0.0.2",
+  "description": "Antshares/Neo bot for slack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/totalvm/neo-slack-bot.git"
+  },
+  "keywords": [
+    "slack",
+    "bot",
+    "botkit",
+    "nlp",
+    "ai",
+    "natural",
+    "language",
+    "andrew",
+    "templeton",
+    "vveerrgg"
+  ],
+  "author": "Andrew Templeton and Vveerrgg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/totalvm/neo-slack-bot/issues"
+  },
+  "homepage": "https://github.com/totalvm/neo-slack-bot/",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "botkit": "^0.5.5",
+    "botkit-storage-mongo": "^1.0.6",
+    "check-types": "^7.1.5",
+    "dashbot": "^0.7.4",
+    "debug": "^2.6.8",
+    "elizabot": "0.0.2",
+    "express": "^4.15.3",
+    "http": "0.0.0",
+    "mongoose": "^4.11.1",
+    "monk": "^6.0.1",
+    "natural": "^0.2.1",
+    "node-env-file": "https://registry.npmjs.org/node-env-file/-/node-env-file-0.1.8.tgz",
+    "querystring": "^0.2.0",
+    "request": "2.75.0",
+    "sentiment": "2.1.0"
+  }
+}
