@@ -21,8 +21,7 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
   };
   
   Bot.storage.phrases.all((err, docs) => {
-    console.log('----------INITIAL DOCS-----------')
-    console.log(err, docs);
+    console.log('----------INITIAL DOCS-----------');
     const customPhrases = {};
     docs.forEach(phrase => {
       customPhrases[phrase.skill] = phrase.phrases;
