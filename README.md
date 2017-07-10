@@ -6,7 +6,7 @@ It's primary function is to respond to certain text in channels and send the use
 
 ## Roadmap
 
-### Release 0.1
+### Release 0.1 - DONE
 - Auto responding bot
 - Saving question data in a Mongo database
 - Using NLP to find questions in chat and respond accordingly
