@@ -15,6 +15,7 @@ const bot_options = {
   clientSecret: process.env.clientSecret,
   token: process.env.token,
   // debug: true,
+  retry: true,
   scopes: ['bot', 'commands', 'incoming-webhook', 'identify']
 };
 
