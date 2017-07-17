@@ -52,7 +52,7 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
           console.log('Bottie interpretation: ', interpretation);
           if (interpretation.guess) {
             console.log('Invoking skill: ' + interpretation.guess);
-            Bot.storage.ignore.find({user: message.user, skill: interpretation.guess}, function (err, res) {
+            Bot.storage.ignore.findOne({user: message.user, skill: interpretation.guess}, function (err, res) {
   
               console.log('FOUND SKILL? ', err, res);
   
@@ -60,6 +60,7 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
               let invoke = true;
               if (err === null && res !== null) {
                 const newDate = new Date(res.dateUpdated);
+                console.log('DATE COMPARE', newDate, res.dateUpdated, new Date(), (dateDiff(new Date(), newDate, 'hours') > 1));
                 switch (res.interval) {
                   case '1h':
                     invoke = (dateDiff(new Date(), newDate, 'hours') > 1);

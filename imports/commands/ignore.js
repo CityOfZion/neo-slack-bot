@@ -7,15 +7,16 @@ const interactive_message_callback = function(controller, bot, message, argument
     skill: skill,
     interval: interval,
     dateUpdated: new Date()
+  }, function(err, res) {
+    console.log('TRYING TO SAVE IGNORE', err, res);
   });
-  console.log('MESSAGE', message);
   
   message.original_message.attachments = [
     {text: `You've ignored this message for [${message.actions[0].name}]`}
   ];
   
   bot.replyInteractive(message, message.original_message, function(err, res) {
-    console.log('REPLAYING INT', err, res);
+    console.log('REPLYING INT', err, res);
   });
 };
 
