@@ -1,4 +1,15 @@
-# NEO SLACK BOT
+<p align="center">
+  <img 
+    src="http://res.cloudinary.com/vidsy/image/upload/v1503160820/CoZ_Icon_DARKBLUE_200x178px_oq0gxm.png" 
+    width="125px"
+  >
+</p>
+
+<h1 align="center">NEO Slack bot for NEO communities</h1>
+
+<p align="center">
+  This slack bot has multiple commands and uses in the main NEO Slack.
+</p>
 
 ## Description
 This bot is specially made for the Antshares/NEO slack. It's purpose is to provide a multitude of functionality for new and seasoned members.
